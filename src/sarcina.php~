@@ -59,7 +59,6 @@
                return $this;
           }
           
-          /*
           // add another class
           function addClass($class)
           {
@@ -84,7 +83,6 @@
 
                return $this;
           }
-          */
                   
      }
 
