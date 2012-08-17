@@ -19,6 +19,8 @@
 
 
 
+
+
      #doc
      #     classname:     SObject
      #     scope:          PUBLIC
@@ -28,15 +30,23 @@
      class SObject
      {
           // obj vars
-          private $_data = array(); // id, class, style
+          protected $_data = array(); // id, class, style
+          
+          var $tag  = 'object';
           
           // construct object
-          function __construct ($id = '', $classes = '', $style = '')
+          function __construct ($id = '', $class = '', $style = '')
           {
                $this->setId($id);
-               $this->setClasses($class);
+               $this->setClass($class);
                $this->setStyle($style);
           }
+          
+          // getters
+          function getId()    { return $this->_data['id']; }
+          function getStyle() { return $this->_data['style']; }
+          function getClass() { return $this->_data['class']; }
+          function getClick() { return $this->_data['click']; }
           
           // set this objects style
           function setStyle($style)
@@ -46,7 +56,7 @@
           }
           
           // set this objects classes
-          function setClasses($class)
+          function setClass($class)
           {
                $this->_data['class'] = trim($class);
                return $this;
@@ -59,35 +69,35 @@
                return $this;
           }
           
-          /*
-          // add another class
-          function addClass($class)
+          function setClick($javascript)
           {
-               // test
-               $class = trim($class);
-                           
-               // only 1 class and it is this class   
-               if ($this->_data['class'] == $class) return $this;
-               
-               // blow up the class string and add new class
-               $classes = explode(' ', $this->_data['class']);
-               $classes[] = $class;
-               
-               // unique the array
-               $classes = array_unique($classes);
-               
-               // implode the classes
-               $classes = implode(' ', $classes);
-               
-               // update class
-               $this->setClass($classes);
-
-               return $this;
+               $this->_data['click'] = $javascript;
+          }    
+          
+          function render() 
+          { 
+               $tag = $this->tag;
+               ?><<?=$tag;?> class="<?=$this->getClass();?>" 
+                    style="<?=$this->getStyle();?>" 
+                         id="<?=$this->getId();?>" 
+                              onclick="<?=$this->getClick();?>"></<?=$tag;?>><?
           }
-          */
-                  
+                            
      }
 
 
+
+
+     #doc
+     #     classname:     SObject
+     #     scope:          PUBLIC
+     #
+     #/doc
+     
+     class SButton extends SObject
+     {
+          var $tag = 'button';
+                    
+     }
 
 
